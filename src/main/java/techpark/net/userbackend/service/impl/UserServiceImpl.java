@@ -16,11 +16,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public KeycloakUser getUserById(String id) {
-        return keycloakApiClient.getAllUsers(0, 10).getBody().get(0);
+        return keycloakApiClient.getUserById(id).getBody();
     }
 
     @Override
     public List<KeycloakUser> getAllUsers() {
-        return keycloakApiClient.getAllUsers(0, 10).getBody();
+        return keycloakApiClient.getAllUsers().getBody();
     }
 }

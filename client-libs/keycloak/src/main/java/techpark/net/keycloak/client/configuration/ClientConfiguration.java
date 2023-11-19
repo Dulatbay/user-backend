@@ -9,6 +9,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -29,25 +31,30 @@ public class ClientConfiguration {
     @Value("${authentication.security.keycloak.client-id:techno-park}")
     private String bearerClientId;
 
+//    @Value("${authentication.security.keycloak.client-secret:1ipYSy9JmkRTfIyupcV5w8ne1xGlScb0}")
+//    private String bearerClientSecret;
+
 //    private String currentToken; TODO: сделать так, чтобы если токен доступный, он не шел на api depot
 
     @Bean
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
             Token token = getToken();
+
             requestTemplate.header("Authorization", "Bearer " + token.accessToken);
         };
     }
 
     private Token getToken() {
         var headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        var vars = new HashMap<>();
-        vars.put("client_id", bearerClientId);
-        vars.put("username", bearerAuthUsername);
-        vars.put("password", bearerAuthPassword);
-        vars.put("grant_type", "password");
+        MultiValueMap<String, String> vars = new LinkedMultiValueMap<>();
+        vars.add("client_id", bearerClientId);
+        vars.add("username", bearerAuthUsername);
+        vars.add("password", bearerAuthPassword);
+//        vars.add("client_secret", bearerClientSecret);
+        vars.add("grant_type", "password");
 
         var requestEntity = new HttpEntity<>(vars, headers);
         var template = new RestTemplate();
