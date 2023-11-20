@@ -11,6 +11,22 @@ spring:
   application:
     name: user-backend
     version: 1.0.0
+  datasource:
+    url: jdbc:postgresql://${DATABASE_DOMAIN:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:test}
+    username: ${DATABASE_USERNAME:-postgres}
+    password: ${DATABASE_PASSWORD:-postgres}
+    driver-class-name: ${DRIVER_CLASS_NAME:org.postgresql.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
 
 eureka:
   client:
