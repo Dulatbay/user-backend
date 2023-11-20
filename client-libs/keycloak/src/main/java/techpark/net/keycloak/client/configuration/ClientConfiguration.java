@@ -31,7 +31,7 @@ public class ClientConfiguration {
     @Value("${authentication.security.keycloak.client-id:techno-park}")
     private String bearerClientId;
 
-    @Value("${authentication.security.keycloak.client-id:M22flLKxhaXUwUBgwrN2UpFkLxq9Wodk}")
+    @Value("${authentication.security.keycloak.client-id:StOF38GKmmCD0w8Sq2bj7u3Y1iClztWr}")
     private String bearerClientSecret;
 
 //    private String currentToken; TODO: сделать так, чтобы если токен доступный, он не шел на api depot
