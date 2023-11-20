@@ -7,4 +7,6 @@ import java.util.List;
 public interface UserService {
     KeycloakUser getUserById(String id);
     List<KeycloakUser> getAllUsers();
+
+    List<KeycloakUser> getProfileUsers();
 }
